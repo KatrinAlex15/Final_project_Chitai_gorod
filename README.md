@@ -1,6 +1,5 @@
 # Final_project_Chitai_gorod
 
-# pytest_ui_api_template
 
 ## Шаблон для автоматизации тестирования на python
 
