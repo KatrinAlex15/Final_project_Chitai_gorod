@@ -4,43 +4,31 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
-from config import UI_URL
+from config import UI_BASE_URL
 
 
 
 class MainPage:
 
     #Настроить браузер, перейти на сайт
-    def __init__(self, driver: WebDriver):
-        self._driver: WebDriver = driver
-        self._driver.get(UI_URL)
-        self._driver.implicitly_wait(5)
-        self._driver.maximize_window()
-
-       
-
-        #self.__url = "https://www.chitai-gorod.ru/"
-        #self.__driver = driver
-
-    #Перейти на страницу "Читай город"
-    #def go(self):
-        #self.__driver.get(self.__url)
+    def __init__(self, driver):
+        self.driver = driver
+        self.driver.get(UI_BASE_URL)
+        self.driver.implicitly_wait(5)
+        self.driver.maximize_window()
+        self.driver.find_element(By.CSS_SELECTOR, ".button.change-city__button.blue").click()    
 
     #Поменять город
     def change_city(self, change_city) -> None:
-        self.__driver.find_element(By.CSS_SELECTOR, ".header-city.header-top-bar__city").click()
-        self.__driver.find_element(By.CSS_SELECTOR, ".button change-city.light-blue").click()
-        self.__driver.find_element(By.XPATH, f"//li[text(={change_city})]").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".header-city.header-top-bar__city").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".button.change-city__button.light-blue").click()
+        self.driver.find_element(By.XPATH, f"//li[text(={change_city})]").click()
 
-    #строка поиска
+    # поиск
     def enter_search_query(self, query):
-        search_input = self.__driver.find_element(By.CSS_SELECTOR, ".header-search__input")
-        search_input.send_keys(query)
-
-        #нажать searh button кнопки поиска
-    def click_searh_button(self, button):
-        button = driver.find_element(By.CSS_SELECTOR, ".header-search__input")
-        button.click()
+        self.driver.find_element(By.CSS_SELECTOR, "#search-field").send_keys(term)
+        self.driver.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
+     
      #получение результатов поиска
     def find_book(self, value: str):
         self.__driver.find_element(By.CSS_SELECTOR, "input.header-search__input").send_keys(value + Keys.RETURN)

@@ -1,23 +1,25 @@
 #класс апи пейдж
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.remote.webdriver import WebDriver
 import allure
+import requests
 
 #get_headers метод возвращает "Authorization": f"Bearer {self.token}"
 class ApiPage:
-    def __init__(self, __url: str, token: str):
+    def __init__(self, url: str, token: str):
         #урл для доступа к апи
         self.url = url
         self.headers = {
-            "Authorization": f"Bearer {self.token}",
+            "Authorization": f"Bearer {token}",
             "Content-Type": "application/json"
         }
 
 
-#поиск книги 
-    def search_book(self, search):
-        resp = requests.get(self.url)
+#поиск по фразе
+    def search_book(self, search_phrase):
+        my_params={
+            "phrase": search_phrase
+        }
+
+        resp = requests.get(self.url +'api/v2/search/product', headers=self.headers, params=my_params)
+        return resp
 
 #метод обраюотка результатов поиска: список книг из тела ответа
