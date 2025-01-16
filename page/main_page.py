@@ -45,14 +45,22 @@ class MainPage:
     def find_book(self, value: str):
         self.__driver.find_element(By.CSS_SELECTOR, "input.header-search__input").send_keys(value + Keys.RETURN)
 
-
+#проверка сообщения об отсутствии резутаттов (рапрпарпр)
+    def check_result(self) -> list[str]:
+         self.__driver.find_element(By.CSS_SELECTOR, ".catalog-empty-result__header")
     
         
-
+    def check_result(self) -> list[str]:
+        #ожидаем загрузки результатов поиска
+        (WebDriverWait(self.__driver,10).
+        until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".catalog-empty-result__header"))))
+        self.__driver.find_element(By.CSS_SELECTOR, ".catalog-empty-result__header")
+       
     
-   
-    #проверка сообщения об отсутствии резутаттов (рапрпарпр)
     #проверка поиска по автору, проверить корректность проверки ожмдаемых авторов
+    def serch_authors(self) -> list[str]:
+        self.__driver.find_element(By.CSS_SELECTOR, ".search-page__found-message")
+        
     #
 
     
