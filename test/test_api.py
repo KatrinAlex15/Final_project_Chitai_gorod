@@ -90,3 +90,4 @@ def test_search_by_empty_string():
     resp_search = api.search_book("")
     assert resp_search.status_code == 400
     assert "Phrase обязательное поле" in resp_search.text
+    
